@@ -43,6 +43,41 @@ body.theme-girl{background:
 .d3{left:7%;bottom:13%;width:40px;animation-delay:-4s}.d4{right:8%;bottom:10%;width:52px;animation-delay:-1s}
 @keyframes float{50%{transform:translateY(-12px) rotate(4deg)}}
 
+/* Top Right Language Switcher */
+.lang-switch {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 100;
+  display: flex;
+  gap: 4px;
+  background: rgba(255, 253, 249, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 4px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 162, 76, 0.35);
+  box-shadow: 0 4px 12px rgba(81, 70, 82, 0.08);
+}
+.lang-btn {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 0.75rem;
+  padding: 5px 11px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.lang-btn.active {
+  background: var(--pink-deep);
+  color: #fff;
+}
+body.theme-boy .lang-btn.active {
+  background: var(--blue-deep);
+}
+
 .card{
   position:relative;z-index:2;width:min(100%,560px);margin:0 auto;
   padding:34px 28px 30px;text-align:center;
@@ -181,17 +216,20 @@ h1 .amp{color:var(--pink-deep);font-size:.75em;padding:0 7px}
 </head>
 <body>
 
+<div class="lang-switch">
+  <button class="lang-btn active" id="btnBg">BG</button>
+  <button class="lang-btn" id="btnEn">EN</button>
+</div>
+
 <div class="art-bg">
   <div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div>
   <div class="doodle d1"><svg viewBox="0 0 60 60"><path d="M10 42C22 25 31 14 49 10C42 28 30 42 10 42Z" fill="none" stroke="#d4a24c" stroke-width="2"/><path d="M12 39C25 35 34 26 43 15" stroke="#d4a24c" stroke-width="1.4"/></svg></div>
   <div class="doodle d2"><svg viewBox="0 0 50 50"><path d="M25 45C23 30 24 18 32 8" stroke="#e9799f" stroke-width="2" stroke-linecap="round"/><path d="M26 29C17 27 11 22 9 15C18 15 25 20 26 29Z" fill="#f6b7ca"/><path d="M27 22C31 14 37 10 44 10C42 18 36 23 27 22Z" fill="#a9d7ea"/></svg></div>
   <div class="doodle d3"><svg viewBox="0 0 40 40"><path d="M20 35C8 25 3 18 8 11C13 5 19 10 20 15C21 10 27 5 32 11C37 18 32 25 20 35Z" fill="#f6b7ca" opacity=".75"/></svg></div>
   <div class="doodle d4"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="18" fill="none" stroke="#a9d7ea" stroke-width="2"/><path d="M30 7v9M30 44v9M7 30h9M44 30h9" stroke="#d4a24c" stroke-width="1.5"/><circle cx="30" cy="30" r="3" fill="#e9799f"/></svg></div>
-</div></div>
-<div class="theme-wash" aria-hidden="true"></div>
+</div>
 
 <div class="card">
-
   <svg class="wreath" viewBox="0 0 150 42" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M8 33C30 7 48 6 70 25C92 6 116 7 142 33" stroke="#d4a24c" stroke-width="1.2" stroke-linecap="round"/>
     <path d="M31 19c-7-7-12-7-16-5 4 6 8 8 16 5Zm88 0c7-7 12-7 16-5-4 6-8 8-16 5Z" fill="#cbd9c1"/>
@@ -199,12 +237,10 @@ h1 .amp{color:var(--pink-deep);font-size:.75em;padding:0 7px}
     <circle cx="75" cy="27" r="3" fill="#d4a24c"/>
   </svg>
 
-  </svg>
-
-  <span class="eyebrow">Очакваме бебче ✿</span>
-  <h1>Гери <span class="amp">&amp;</span> Илиан<br>Кръстеви</h1>
+  <span class="eyebrow" id="eyebrow">Очакваме бебче ✿</span>
+  <h1 id="titleNames">Гери <span class="amp">&amp;</span> Илиан<br>Кръстеви</h1>
   <div class="rule"></div>
-  <p class="date-line">Очакваната дата е <strong>23 януари 2027</strong></p>
+  <p class="date-line" id="dateLine">Очакваната дата е <strong id="dateText">23 януари 2027</strong></p>
 
   <div class="photo-stage" id="photoStage" role="button" tabindex="0"
        aria-label="Докосни снимката, за да разбереш пола на бебето">
@@ -220,8 +256,8 @@ h1 .amp{color:var(--pink-deep);font-size:.75em;padding:0 7px}
           <circle cx="94" cy="34" r="13" stroke="#5a9fc2" stroke-width="3"/>
           <path d="M57 67c4-5 9-5 13 0" stroke="#d4a24c" stroke-width="3" stroke-linecap="round"/>
         </svg>
-        <strong>Нашата снимка</strong>
-        <span>Добави <b>couple-photo.jpg</b> до HTML файла и тя ще се появи тук.</span>
+        <strong id="phTitle">Нашата снимка</strong>
+        <span id="phDesc">Добави <b>couple-photo.jpg</b> до HTML файла и тя ще се появи тук.</span>
       </div>
       <div class="reveal-overlay"><span class="reveal-badge" id="revealBadge"></span></div>
     </div>
@@ -230,45 +266,79 @@ h1 .amp{color:var(--pink-deep);font-size:.75em;padding:0 7px}
     <div class="sparkle sc"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6L12 0z" fill="#5a9fc2"/></svg></div>
   </div>
 
-  <p class="hint">Докосни снимката, за да разбереш ✨</p>
+  <p class="hint" id="hint">Докосни снимката, за да разбереш ✨</p>
   <p class="result-text" id="resultText"></p>
-  <p class="little-note">Една малка любовна история, която скоро ще стане трима. 🤍</p>
+  <p class="little-note" id="littleNote">Една малка любовна история, която скоро ще стане трима. 🤍</p>
+
   <div class="gallery">
-  <div class="slot">
-    <img src="https://github.com/gericodes/gender-reveal-website/blob/main/photo1.png?raw=true" alt="">
+    <div class="slot"><img src="https://github.com/gericodes/gender-reveal-website/blob/main/photo1.png?raw=true" alt=""></div>
+    <div class="slot"><img src="https://github.com/gericodes/gender-reveal-website/blob/main/photo2.png?raw=true" alt=""></div>
+    <div class="slot"><img src="https://github.com/gericodes/gender-reveal-website/blob/main/photo3.png?raw=true" alt=""></div>
   </div>
-
-  <div class="slot">
-    <img src="https://github.com/gericodes/gender-reveal-website/blob/main/photo2.png?raw=true" alt="">
-  </div>
-
-  <div class="slot">
-    <img src="https://github.com/gericodes/gender-reveal-website/blob/main/photo3.png?raw=true" alt="">
-  </div>
-</div>
 
   <svg class="footer-flourish" viewBox="0 0 100 18" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M2 9 H34" stroke="#c99a3f" stroke-width="1"/>
     <path d="M66 9 H98" stroke="#c99a3f" stroke-width="1"/>
     <path d="M50 3 C53 6 53 12 50 15 C47 12 47 6 50 3 Z" fill="#bccdab"/>
   </svg>
-  <p class="footer-note">Гери &amp; Илиан · с любов ❤, 2026</p>
-
+  <p class="footer-note" id="footerNote">Гери &amp; Илиан · с любов ❤, 2026</p>
 </div>
 
 <div class="confetti-layer" id="confettiLayer"></div>
 
 <button class="admin-btn" id="adminBtn" aria-label="Настройки">⚙</button>
 <div class="admin-panel" id="adminPanel">
-  <p>Пол на бебето</p>
-  <label><input type="radio" name="genderPick" value="boy"> Момче 💙</label>
-  <label><input type="radio" name="genderPick" value="girl"> Момиче 💗</label>
-  <small>Скрит бутон само за вас. За истинско парти е по-добре да зададете REVEAL_GENDER директно в кода и да махнете панела.</small>
+  <p id="adminTitle">Пол на бебето</p>
+  <label><input type="radio" name="genderPick" value="boy"> <span id="lblBoy">Момче 💙</span></label>
+  <label><input type="radio" name="genderPick" value="girl"> <span id="lblGirl">Момиче 💗</span></label>
+  <small id="adminDesc">Скрит бутон само за вас. За истинско парти е по-добре да зададете REVEAL_GENDER директно в кода и да махнете панела.</small>
 </div>
 
 <script>
-
   let REVEAL_GENDER = null;
+  let currentGender = null;
+  let currentLang = 'bg';
+
+  const translations = {
+    bg: {
+      eyebrow: "Очакваме бебче ✿",
+      titleNames: "Гери <span class=\"amp\">&amp;</span> Илиан<br>Кръстеви",
+      dateLine: "Очакваната дата е <strong id=\"dateText\">23 януари 2027</strong>",
+      photoLabel: "Докосни снимката, за да разбереш пола на бебето",
+      phTitle: "Нашата снимка",
+      phDesc: "Добави <b>couple-photo.jpg</b> до HTML файла и тя ще се появи тук.",
+      hint: "Докосни снимката, за да разбереш ✨",
+      littleNote: "Една малка любовна история, която скоро ще стане трима. 🤍",
+      footerNote: "Гери &amp; Илиан · с любов ❤, 2026",
+      adminTitle: "Пол на бебето",
+      lblBoy: "Момче 💙",
+      lblGirl: "Момиче 💗",
+      adminDesc: "Скрит бутон само за вас. За истинско парти е по-добре да зададете REVEAL_GENDER директно в кода и да махнете панела.",
+      revealBoyBadge: "Очакваме момченце 💙",
+      revealBoyResult: "То е <span class=\"tag-boy\">момче</span>! 💙",
+      revealGirlBadge: "Очакваме момиченце 💗",
+      revealGirlResult: "То е <span class=\"tag-girl\">момиче</span>! 💗"
+    },
+    en: {
+      eyebrow: "We are expecting a baby ✿",
+      titleNames: "Geri <span class=\"amp\">&amp;</span> Ilian<br>Krastevi",
+      dateLine: "Due date is <strong id=\"dateText\">January 23, 2027</strong>",
+      photoLabel: "Tap the photo to reveal the baby's gender",
+      phTitle: "Our Photo",
+      phDesc: "Add <b>couple-photo.jpg</b> next to the HTML file and it will appear here.",
+      hint: "Tap the photo to reveal ✨",
+      littleNote: "A little love story that will soon become three. 🤍",
+      footerNote: "Geri &amp; Ilian · with love ❤, 2026",
+      adminTitle: "Baby's Gender",
+      lblBoy: "Boy 💙",
+      lblGirl: "Girl 💗",
+      adminDesc: "Hidden button just for you. For a real party, set REVEAL_GENDER directly in code and remove this panel.",
+      revealBoyBadge: "We're expecting a boy 💙",
+      revealBoyResult: "It's a <span class=\"tag-boy\">boy</span>! 💙",
+      revealGirlBadge: "We're expecting a girl 💗",
+      revealGirlResult: "It's a <span class=\"tag-girl\">girl</span>! 💗"
+    }
+  };
 
   const photoStage = document.getElementById('photoStage');
   const resultText = document.getElementById('resultText');
@@ -277,6 +347,45 @@ h1 .amp{color:var(--pink-deep);font-size:.75em;padding:0 7px}
   const confettiLayer = document.getElementById('confettiLayer');
   const adminBtn = document.getElementById('adminBtn');
   const adminPanel = document.getElementById('adminPanel');
+
+  const btnBg = document.getElementById('btnBg');
+  const btnEn = document.getElementById('btnEn');
+
+  function setLanguage(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    const t = translations[lang];
+
+    btnBg.classList.toggle('active', lang === 'bg');
+    btnEn.classList.toggle('active', lang === 'en');
+
+    document.getElementById('eyebrow').innerHTML = t.eyebrow;
+    document.getElementById('titleNames').innerHTML = t.titleNames;
+    document.getElementById('dateLine').innerHTML = t.dateLine;
+    photoStage.setAttribute('aria-label', t.photoLabel);
+    document.getElementById('phTitle').innerHTML = t.phTitle;
+    document.getElementById('phDesc').innerHTML = t.phDesc;
+    document.getElementById('hint').innerHTML = t.hint;
+    document.getElementById('littleNote').innerHTML = t.littleNote;
+    document.getElementById('footerNote').innerHTML = t.footerNote;
+    document.getElementById('adminTitle').innerText = t.adminTitle;
+    document.getElementById('lblBoy').innerText = t.lblBoy;
+    document.getElementById('lblGirl').innerText = t.lblGirl;
+    document.getElementById('adminDesc').innerText = t.adminDesc;
+
+    if (currentGender) {
+      if (currentGender === 'boy') {
+        revealBadge.textContent = t.revealBoyBadge;
+        resultText.innerHTML = t.revealBoyResult;
+      } else {
+        revealBadge.textContent = t.revealGirlBadge;
+        resultText.innerHTML = t.revealGirlResult;
+      }
+    }
+  }
+
+  btnBg.addEventListener('click', () => setLanguage('bg'));
+  btnEn.addEventListener('click', () => setLanguage('en'));
 
   adminBtn.addEventListener('click', () => adminPanel.classList.toggle('open'));
   document.querySelectorAll('input[name="genderPick"]').forEach(input => {
@@ -288,24 +397,26 @@ h1 .amp{color:var(--pink-deep);font-size:.75em;padding:0 7px}
 
   function reveal(){
     if (photoStage.classList.contains('revealed')) return;
-    const gender = REVEAL_GENDER === 'boy' || REVEAL_GENDER === 'girl' ? REVEAL_GENDER : (Math.random() < 0.5 ? 'boy' : 'girl');
-    if (gender === 'boy'){
+    currentGender = REVEAL_GENDER === 'boy' || REVEAL_GENDER === 'girl' ? REVEAL_GENDER : (Math.random() < 0.5 ? 'boy' : 'girl');
+    const t = translations[currentLang];
+
+    if (currentGender === 'boy'){
       couplePhoto.src = 'https://github.com/gericodes/gender-reveal-website/blob/main/boy.png?raw=true';
-      revealBadge.textContent = 'Очакваме момченце 💙';
-      resultText.innerHTML = 'То е <span class="tag-boy">момче</span>! 💙';
+      revealBadge.textContent = t.revealBoyBadge;
+      resultText.innerHTML = t.revealBoyResult;
     } else {
       couplePhoto.src = 'https://github.com/gericodes/gender-reveal-website/blob/main/girl.png?raw=true';
-      revealBadge.textContent = 'Очакваме момиченце 💗';
-      resultText.innerHTML = 'То е <span class="tag-girl">момиче</span>! 💗';
+      revealBadge.textContent = t.revealGirlBadge;
+      resultText.innerHTML = t.revealGirlResult;
     }
 
     photoStage.classList.add('revealed');
     requestAnimationFrame(() => resultText.classList.add('show'));
-    launchConfetti(gender);
+    launchConfetti(currentGender);
 
     document.body.classList.remove('theme-boy', 'theme-girl');
-    void document.body.offsetWidth; // restart transition cleanly
-    document.body.classList.add(gender === 'boy' ? 'theme-boy' : 'theme-girl');
+    void document.body.offsetWidth;
+    document.body.classList.add(currentGender === 'boy' ? 'theme-boy' : 'theme-girl');
   }
 
   photoStage.addEventListener('click', reveal);
