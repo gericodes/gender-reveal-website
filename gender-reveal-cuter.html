@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Гери &amp; Илиан — Очакваме бебе!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Marck+Script&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#fffaf4; --paper:#fffdf9; --ink:#514652; --muted:#8e7f8d;
+  --pink:#f6b7ca; --pink-deep:#e9799f; --blue:#a9d7ea; --blue-deep:#5a9fc2;
+  --peach:#f6d5bd; --lavender:#d8c8e8; --sage:#cbd9c1; --gold:#d4a24c;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{
+  min-height:100vh; padding:28px 16px 48px; overflow-x:hidden;
+  color:var(--ink); font-family:'Nunito',sans-serif;
+  background:
+    radial-gradient(circle at 8% 8%,rgba(246,183,202,.32),transparent 24%),
+    radial-gradient(circle at 94% 88%,rgba(169,215,234,.34),transparent 26%),
+    var(--cream);
+  transition:background 1s ease;
+}
+body.theme-boy{background:
+  radial-gradient(circle at 15% 15%,rgba(169,215,234,.48),transparent 30%),
+  radial-gradient(circle at 88% 82%,rgba(216,200,232,.30),transparent 28%),#f7fcff}
+body.theme-girl{background:
+  radial-gradient(circle at 12% 12%,rgba(246,183,202,.48),transparent 30%),
+  radial-gradient(circle at 88% 82%,rgba(246,213,189,.34),transparent 28%),#fff9fb}
+
+.art-bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(45px);opacity:.45;animation:drift 12s ease-in-out infinite}
+.blob-1{width:330px;height:330px;background:var(--pink);left:-120px;top:-90px}
+.blob-2{width:300px;height:300px;background:var(--blue);right:-110px;bottom:-80px;animation-delay:-4s}
+.blob-3{width:190px;height:190px;background:var(--lavender);right:-70px;top:42%;animation-delay:-8s}
+@keyframes drift{50%{transform:translate(12px,-18px) scale(1.04)}}
+
+.doodle{position:absolute;opacity:.55;animation:float 7s ease-in-out infinite}
+.doodle svg{display:block}
+.d1{left:4%;top:12%;width:54px}.d2{right:6%;top:18%;width:42px;animation-delay:-2s}
+.d3{left:7%;bottom:13%;width:40px;animation-delay:-4s}.d4{right:8%;bottom:10%;width:52px;animation-delay:-1s}
+@keyframes float{50%{transform:translateY(-12px) rotate(4deg)}}
+
+.card{
+  position:relative;z-index:2;width:min(100%,560px);margin:0 auto;
+  padding:34px 28px 30px;text-align:center;
+  background:rgba(255,253,249,.90); backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.9); border-radius:34px;
+  box-shadow:0 30px 80px rgba(81,70,82,.16),0 2px 0 rgba(255,255,255,.8) inset;
+  overflow:hidden; animation:rise .9s cubic-bezier(.2,.8,.2,1) both;
+}
+.card:before{
+  content:"";position:absolute;inset:9px;border:1px dashed rgba(212,162,76,.34);
+  border-radius:27px;pointer-events:none
+}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.wreath{width:150px;height:42px;margin:0 auto 2px}
+.eyebrow{font-family:'Marck Script',cursive;font-size:1.65rem;color:var(--pink-deep);margin:0 0 2px}
+body.theme-boy .eyebrow{color:var(--blue-deep)}
+h1{font-family:'Marck Script',cursive;font-size:clamp(3rem,11vw,4.5rem);font-weight:400;line-height:.98;margin:4px 0 12px}
+h1 .amp{color:var(--pink-deep);font-size:.75em;padding:0 7px}
+.rule{width:100px;height:10px;margin:0 auto 12px}
+.date-line{margin:0 0 24px;font-size:.96rem;font-weight:700;color:var(--muted)}
+.date-line strong{color:var(--ink);position:relative}
+.date-line strong:after{content:"";position:absolute;left:-3px;right:-3px;bottom:0;height:7px;background:rgba(246,213,189,.75);z-index:-1;transform:rotate(-1deg)}
+
+.photo-stage{
+  position:relative;width:min(100%,390px);margin:4px auto 14px;
+  padding:13px; cursor:pointer; outline:none;
+}
+.photo-stage:focus-visible{outline:3px solid var(--gold);border-radius:32px}
+.photo-stage:before,.photo-stage:after{
+  content:"";position:absolute;border-radius:50%;border:1px dashed rgba(212,162,76,.65);
+  animation:spin 26s linear infinite
+}
+.photo-stage:before{inset:0}.photo-stage:after{inset:8px;border-color:rgba(231,164,190,.38);animation-direction:reverse;animation-duration:34s}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.photo-card{
+  position:relative;z-index:1;aspect-ratio:4/4.5;overflow:hidden;
+  border-radius:30px 30px 42px 42px;background:#fff;
+  box-shadow:0 18px 45px rgba(81,70,82,.18);
+  transform:rotate(-1deg);transition:transform .45s cubic-bezier(.2,.9,.3,1.2),filter .35s;
+}
+.photo-stage:hover .photo-card{transform:rotate(1deg) scale(1.015)}
+.photo-card:before{
+  content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(135deg,rgba(255,255,255,.35),transparent 35%,rgba(255,255,255,.16));
+}
+.couple-photo{width:100%;height:100%;display:block;object-fit:cover}
+.photo-placeholder{
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;
+  padding:28px;color:var(--muted);
+  background:
+    radial-gradient(circle at 20% 18%,rgba(246,183,202,.48),transparent 23%),
+    radial-gradient(circle at 82% 72%,rgba(169,215,234,.48),transparent 24%),
+    #fffaf5;
+}
+.photo-placeholder svg{width:92px;opacity:.72}
+.photo-placeholder strong{font-family:'Marck Script',cursive;font-size:1.7rem;font-weight:400;color:var(--ink)}
+.photo-placeholder span{font-size:.78rem;line-height:1.4;max-width:240px}
+.photo-stage.revealed .photo-card{filter:saturate(1.06)}
+.reveal-overlay{
+  position:absolute;inset:0;z-index:3;display:flex;align-items:flex-end;justify-content:center;
+  padding:22px;opacity:0;pointer-events:none;transition:opacity .45s ease;
+  background:linear-gradient(transparent 48%,rgba(81,70,82,.48));
+}
+.photo-stage.revealed .reveal-overlay{opacity:1}
+.reveal-badge{
+  padding:9px 17px;border-radius:999px;background:rgba(255,255,255,.9);
+  font-weight:800;font-size:.9rem;box-shadow:0 8px 20px rgba(0,0,0,.12)
+}
+.hint{margin:0 0 6px;color:var(--muted);font-weight:800;font-size:.88rem}
+.photo-stage.revealed + .hint{opacity:0;height:0;overflow:hidden;margin:0}
+.result-text{
+  min-height:2.7rem;margin:3px 0 0;font-family:'Marck Script',cursive;font-size:2.6rem;
+  opacity:0;transform:translateY(8px);transition:.45s ease .2s
+}
+.result-text.show{opacity:1;transform:none}
+.tag-boy{color:var(--blue-deep)}.tag-girl{color:var(--pink-deep)}
+
+.little-note{
+  margin:22px auto 0;max-width:420px;font-size:.88rem;line-height:1.6;color:var(--muted)
+}
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 20px auto 0;
+  max-width: 420px;
+}
+
+.gallery .slot {
+  aspect-ratio: 1;
+  border-radius: 18px;
+  overflow: hidden;
+  padding: 0;
+}
+
+.gallery .slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.footer-flourish{width:130px;height:24px;margin:24px auto 5px}
+.footer-note{font-size:.75rem;color:var(--muted);opacity:.75}
+
+.sparkle{position:absolute;z-index:5;opacity:0}
+.photo-stage.revealed .sparkle{animation:pop .75s ease forwards}
+.sa{left:0;top:10%;animation-delay:.25s!important}.sb{right:0;top:4%;animation-delay:.45s!important}.sc{left:5%;bottom:6%;animation-delay:.38s!important}
+@keyframes pop{0%{opacity:0;transform:scale(0) rotate(0)}60%{opacity:1;transform:scale(1.15) rotate(14deg)}100%{opacity:1;transform:scale(1) rotate(14deg)}}
+
+.confetti-layer{position:fixed;inset:0;pointer-events:none;z-index:20;overflow:hidden}
+.confetti-piece{position:absolute;top:50%;left:50%;opacity:0;will-change:transform,opacity}
+
+.admin-btn{
+  position:fixed;right:14px;bottom:14px;z-index:30;width:36px;height:36px;border:0;border-radius:50%;
+  background:rgba(81,70,82,.08);color:var(--muted);cursor:pointer
+}
+.admin-panel{
+  position:fixed;right:14px;bottom:58px;z-index:30;width:210px;padding:14px 16px;border-radius:16px;
+  background:#fffdf9;box-shadow:0 15px 35px rgba(81,70,82,.22);display:none;text-align:left;font-size:.8rem
+}
+.admin-panel.open{display:block}.admin-panel p{margin:0 0 8px;font-weight:800}
+.admin-panel label{display:flex;gap:8px;margin:7px 0;color:var(--muted);font-weight:700}
+.admin-panel small{display:block;margin-top:8px;color:var(--muted);line-height:1.35}
+
+@media(max-width:480px){
+  body{padding:16px 10px 34px}.card{padding:28px 17px 26px;border-radius:28px}
+  .card:before{inset:7px;border-radius:22px}.gallery{gap:7px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="art-bg">
+  <div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div>
+  <div class="doodle d1"><svg viewBox="0 0 60 60"><path d="M10 42C22 25 31 14 49 10C42 28 30 42 10 42Z" fill="none" stroke="#d4a24c" stroke-width="2"/><path d="M12 39C25 35 34 26 43 15" stroke="#d4a24c" stroke-width="1.4"/></svg></div>
+  <div class="doodle d2"><svg viewBox="0 0 50 50"><path d="M25 45C23 30 24 18 32 8" stroke="#e9799f" stroke-width="2" stroke-linecap="round"/><path d="M26 29C17 27 11 22 9 15C18 15 25 20 26 29Z" fill="#f6b7ca"/><path d="M27 22C31 14 37 10 44 10C42 18 36 23 27 22Z" fill="#a9d7ea"/></svg></div>
+  <div class="doodle d3"><svg viewBox="0 0 40 40"><path d="M20 35C8 25 3 18 8 11C13 5 19 10 20 15C21 10 27 5 32 11C37 18 32 25 20 35Z" fill="#f6b7ca" opacity=".75"/></svg></div>
+  <div class="doodle d4"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="18" fill="none" stroke="#a9d7ea" stroke-width="2"/><path d="M30 7v9M30 44v9M7 30h9M44 30h9" stroke="#d4a24c" stroke-width="1.5"/><circle cx="30" cy="30" r="3" fill="#e9799f"/></svg></div>
+</div></div>
+<div class="theme-wash" aria-hidden="true"></div>
+
+<div class="card">
+
+  <svg class="wreath" viewBox="0 0 150 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8 33C30 7 48 6 70 25C92 6 116 7 142 33" stroke="#d4a24c" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M31 19c-7-7-12-7-16-5 4 6 8 8 16 5Zm88 0c7-7 12-7 16-5-4 6-8 8-16 5Z" fill="#cbd9c1"/>
+    <path d="M58 17c-5-6-10-7-14-5 3 6 7 8 14 5Zm34 0c5-6 10-7 14-5-3 6-7 8-14 5Z" fill="#f6b7ca"/>
+    <circle cx="75" cy="27" r="3" fill="#d4a24c"/>
+  </svg>
+
+  </svg>
+
+  <span class="eyebrow">Очакваме бебче ✿</span>
+  <h1>Гери <span class="amp">&amp;</span> Илиан<br>Кръстеви</h1>
+  <div class="rule"></div>
+  <p class="date-line">Очакваната дата е <strong>23 януари 2027</strong></p>
+
+  <div class="photo-stage" id="photoStage" role="button" tabindex="0"
+       aria-label="Докосни снимката, за да разбереш пола на бебето">
+    <div class="photo-card">
+      <img class="couple-photo" id="couplePhoto" src="https://github.com/gericodes/gender-reveal-website/blob/main/neutral.png?raw=true"
+           alt="Снимка на двама ни"
+           onerror="this.style.display='none';document.getElementById('photoPlaceholder').style.display='flex';">
+      <div class="photo-placeholder" id="photoPlaceholder">
+        <svg viewBox="0 0 120 100" fill="none" aria-hidden="true">
+          <path d="M22 78c2-18 12-28 28-28s26 10 28 28" stroke="#e9799f" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="50" cy="34" r="13" stroke="#e9799f" stroke-width="3"/>
+          <path d="M70 78c2-18 12-28 28-28s20 10 22 28" stroke="#5a9fc2" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="94" cy="34" r="13" stroke="#5a9fc2" stroke-width="3"/>
+          <path d="M57 67c4-5 9-5 13 0" stroke="#d4a24c" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <strong>Нашата снимка</strong>
+        <span>Добави <b>couple-photo.jpg</b> до HTML файла и тя ще се появи тук.</span>
+      </div>
+      <div class="reveal-overlay"><span class="reveal-badge" id="revealBadge"></span></div>
+    </div>
+    <div class="sparkle sa"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6L12 0z" fill="#d4a24c"/></svg></div>
+    <div class="sparkle sb"><svg width="17" height="17" viewBox="0 0 24 24"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6L12 0z" fill="#e9799f"/></svg></div>
+    <div class="sparkle sc"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6L12 0z" fill="#5a9fc2"/></svg></div>
+  </div>
+
+  <p class="hint">Докосни снимката, за да разбереш ✨</p>
+  <p class="result-text" id="resultText"></p>
+  <p class="little-note">Една малка любовна история, която скоро ще стане трима. 🤍</p>
+  <div class="gallery">
+  <div class="slot">
+    <img src="https://github.com/gericodes/gender-reveal-website/blob/main/photo1.png?raw=true" alt="">
+  </div>
+
+  <div class="slot">
+    <img src="https://github.com/gericodes/gender-reveal-website/blob/main/photo2.png?raw=true" alt="">
+  </div>
+
+  <div class="slot">
+    <img src="https://github.com/gericodes/gender-reveal-website/blob/main/photo3.png?raw=true" alt="">
+  </div>
+</div>
+
+  <svg class="footer-flourish" viewBox="0 0 100 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 9 H34" stroke="#c99a3f" stroke-width="1"/>
+    <path d="M66 9 H98" stroke="#c99a3f" stroke-width="1"/>
+    <path d="M50 3 C53 6 53 12 50 15 C47 12 47 6 50 3 Z" fill="#bccdab"/>
+  </svg>
+  <p class="footer-note">Гери &amp; Илиан · с любов ❤, 2026</p>
+
+</div>
+
+<div class="confetti-layer" id="confettiLayer"></div>
+
+<button class="admin-btn" id="adminBtn" aria-label="Настройки">⚙</button>
+<div class="admin-panel" id="adminPanel">
+  <p>Пол на бебето</p>
+  <label><input type="radio" name="genderPick" value="boy"> Момче 💙</label>
+  <label><input type="radio" name="genderPick" value="girl"> Момиче 💗</label>
+  <small>Скрит бутон само за вас. За истинско парти е по-добре да зададете REVEAL_GENDER директно в кода и да махнете панела.</small>
+</div>
+
+<script>
+  // ---------------------------------------------------------
+  // SET THE OUTCOME HERE before sharing the real link:
+  // 'boy'  -> reveals kitty-boy.png (blue frame)
+  // 'girl' -> reveals kitty-girl.png (pink frame)
+  // null   -> lets you pick live with the gear icon (bottom right) for testing
+  //
+  // TO ADD YOUR COUPLE PHOTO:
+  // Put an image named couple-photo.jpg next to this HTML file.
+  //
+  // TO ADD YOUR OWN BABY/DETAIL PHOTOS LATER:
+  // Put two image files next to this HTML file, named exactly:
+  // If your files use a different name/extension, edit the src=""
+  // attributes on the <img id="imgBoy"> and <img id="imgGirl"> tags above.
+  // The main photo has a soft illustrated placeholder until the file exists.
+  // ---------------------------------------------------------
+  let REVEAL_GENDER = null;
+
+  const photoStage = document.getElementById('photoStage');
+  const resultText = document.getElementById('resultText');
+  const revealBadge = document.getElementById('revealBadge');
+  const couplePhoto = document.getElementById('couplePhoto');
+  const confettiLayer = document.getElementById('confettiLayer');
+  const adminBtn = document.getElementById('adminBtn');
+  const adminPanel = document.getElementById('adminPanel');
+
+  adminBtn.addEventListener('click', () => adminPanel.classList.toggle('open'));
+  document.querySelectorAll('input[name="genderPick"]').forEach(input => {
+    input.addEventListener('change', (e) => {
+      REVEAL_GENDER = e.target.value;
+      adminPanel.classList.remove('open');
+    });
+  });
+
+  function reveal(){
+    if (photoStage.classList.contains('revealed')) return;
+    const gender = REVEAL_GENDER === 'boy' || REVEAL_GENDER === 'girl' ? REVEAL_GENDER : (Math.random() < 0.5 ? 'boy' : 'girl');
+    if (gender === 'boy'){
+      couplePhoto.src = 'https://github.com/gericodes/gender-reveal-website/blob/main/boy.png?raw=true';
+      revealBadge.textContent = 'Очакваме момченце 💙';
+      resultText.innerHTML = 'То е <span class="tag-boy">момче</span>! 💙';
+    } else {
+      couplePhoto.src = 'https://github.com/gericodes/gender-reveal-website/blob/main/girl.png?raw=true';
+      revealBadge.textContent = 'Очакваме момиченце 💗';
+      resultText.innerHTML = 'То е <span class="tag-girl">момиче</span>! 💗';
+    }
+
+    photoStage.classList.add('revealed');
+    requestAnimationFrame(() => resultText.classList.add('show'));
+    launchConfetti(gender);
+
+    document.body.classList.remove('theme-boy', 'theme-girl');
+    void document.body.offsetWidth; // restart transition cleanly
+    document.body.classList.add(gender === 'boy' ? 'theme-boy' : 'theme-girl');
+  }
+
+  photoStage.addEventListener('click', reveal);
+  photoStage.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      reveal();
+    }
+  });
+
+  function launchConfetti(gender){
+    const palette = gender === 'boy'
+      ? ['#c3e4f0', '#5fa3c4', '#ffffff', '#f0bb52']
+      : ['#ffd3de', '#ff8fab', '#ffffff', '#f0bb52'];
+
+    const count = window.innerWidth < 480 ? 80 : 140;
+    const originX = window.innerWidth / 2;
+    const originY = window.innerHeight * 0.4;
+
+    for (let i = 0; i < count; i++){
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      const color = palette[Math.floor(Math.random() * palette.length)];
+      const shapeRoll = Math.random();
+      if (shapeRoll < 0.34){
+        piece.style.background = color;
+        piece.style.borderRadius = '50%';
+      } else if (shapeRoll < 0.67){
+        piece.style.background = `linear-gradient(135deg, ${color} 50%, rgba(255,255,255,.85) 50%)`;
+        piece.style.borderRadius = '2px';
+      } else {
+        piece.style.width = '0';
+        piece.style.height = '0';
+        piece.style.borderLeft = '6px solid transparent';
+        piece.style.borderRight = '6px solid transparent';
+        piece.style.borderBottom = `14px solid ${color}`;
+      }
+
+      piece.style.left = originX + 'px';
+      piece.style.top = originY + 'px';
+
+      const angle = Math.random() * Math.PI * 2;
+      const distance = 130 + Math.random() * 280;
+      const dx = Math.cos(angle) * distance;
+      const dy = Math.sin(angle) * distance - 60;
+      const rotate = (Math.random() - 0.5) * 900;
+      const duration = 1500 + Math.random() * 1000;
+      const delay = Math.random() * 140;
+      const fallExtra = 240 + Math.random() * 280;
+
+      piece.animate([
+        { transform: `translate(-50%,-50%) translate(0px,0px) rotate(0deg)`, opacity: 0 },
+        { transform: `translate(-50%,-50%) translate(${dx}px,${dy}px) rotate(${rotate * 0.4}deg)`, opacity: 1, offset: 0.32 },
+        { transform: `translate(-50%,-50%) translate(${dx * 1.15}px,${dy + fallExtra}px) rotate(${rotate}deg)`, opacity: 0 }
+      ], {
+        duration: duration,
+        delay: delay,
+        easing: 'cubic-bezier(.15,.7,.3,1)',
+        fill: 'forwards'
+      });
+
+      confettiLayer.appendChild(piece);
+      setTimeout(() => piece.remove(), duration + delay + 60);
+    }
+  }
+</script>
+
+</body>
+</html>
