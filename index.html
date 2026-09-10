@@ -192,18 +192,6 @@ h1 .amp{color:var(--pink-deep);font-size:.75em;padding:0 7px}
 .confetti-layer{position:fixed;inset:0;pointer-events:none;z-index:20;overflow:hidden}
 .confetti-piece{position:absolute;top:50%;left:50%;opacity:0;will-change:transform,opacity}
 
-.admin-btn{
-  position:fixed;right:14px;bottom:14px;z-index:30;width:36px;height:36px;border:0;border-radius:50%;
-  background:rgba(81,70,82,.08);color:var(--muted);cursor:pointer
-}
-.admin-panel{
-  position:fixed;right:14px;bottom:58px;z-index:30;width:210px;padding:14px 16px;border-radius:16px;
-  background:#fffdf9;box-shadow:0 15px 35px rgba(81,70,82,.22);display:none;text-align:left;font-size:.8rem
-}
-.admin-panel.open{display:block}.admin-panel p{margin:0 0 8px;font-weight:800}
-.admin-panel label{display:flex;gap:8px;margin:7px 0;color:var(--muted);font-weight:700}
-.admin-panel small{display:block;margin-top:8px;color:var(--muted);line-height:1.35}
-
 @media(max-width:480px){
   body{padding:16px 10px 34px}.card{padding:28px 17px 26px;border-radius:28px}
   .card:before{inset:7px;border-radius:22px}.gallery{gap:7px}
@@ -286,16 +274,9 @@ h1 .amp{color:var(--pink-deep);font-size:.75em;padding:0 7px}
 
 <div class="confetti-layer" id="confettiLayer"></div>
 
-<button class="admin-btn" id="adminBtn" aria-label="Настройки">⚙</button>
-<div class="admin-panel" id="adminPanel">
-  <p id="adminTitle">Пол на бебето</p>
-  <label><input type="radio" name="genderPick" value="boy"> <span id="lblBoy">Момче 💙</span></label>
-  <label><input type="radio" name="genderPick" value="girl"> <span id="lblGirl">Момиче 💗</span></label>
-  <small id="adminDesc">Скрит бутон само за вас. За истинско парти е по-добре да зададете REVEAL_GENDER директно в кода и да махнете панела.</small>
-</div>
-
 <script>
-  let REVEAL_GENDER = null;
+  // Set to 'boy' or 'girl' to control what the reveal shows.
+  const REVEAL_GENDER = 'girl';
   let currentGender = null;
   let currentLang = 'bg';
 
@@ -310,10 +291,6 @@ h1 .amp{color:var(--pink-deep);font-size:.75em;padding:0 7px}
       hint: "Докосни снимката, за да разбереш ✨",
       littleNote: "Една малка любовна история, която скоро ще стане трима 🤍",
       footerNote: "Гери &amp; Илиан с любов ❤ 2026",
-      adminTitle: "Пол на бебето",
-      lblBoy: "Момче 💙",
-      lblGirl: "Момиче 💗",
-      adminDesc: "Скрит бутон само за вас. За истинско парти е по-добре да зададете REVEAL_GENDER директно в кода и да махнете панела.",
       revealBoyBadge: "Очакваме момченце 💙",
       revealBoyResult: "То е <span class=\"tag-boy\">момче</span>! 💙",
       revealGirlBadge: "Очакваме момиченце 💗",
@@ -329,10 +306,6 @@ h1 .amp{color:var(--pink-deep);font-size:.75em;padding:0 7px}
       hint: "Tap the photo to reveal ✨",
       littleNote: "A little love story that will soon become three 🤍",
       footerNote: "Geri &amp; Ilian with love ❤ 2026",
-      adminTitle: "Baby's Gender",
-      lblBoy: "Boy 💙",
-      lblGirl: "Girl 💗",
-      adminDesc: "Hidden button just for you. For a real party, set REVEAL_GENDER directly in code and remove this panel.",
       revealBoyBadge: "We're expecting a boy 💙",
       revealBoyResult: "It's a <span class=\"tag-boy\">boy</span>! 💙",
       revealGirlBadge: "We're expecting a girl 💗",
@@ -345,8 +318,6 @@ h1 .amp{color:var(--pink-deep);font-size:.75em;padding:0 7px}
   const revealBadge = document.getElementById('revealBadge');
   const couplePhoto = document.getElementById('couplePhoto');
   const confettiLayer = document.getElementById('confettiLayer');
-  const adminBtn = document.getElementById('adminBtn');
-  const adminPanel = document.getElementById('adminPanel');
 
   const btnBg = document.getElementById('btnBg');
   const btnEn = document.getElementById('btnEn');
@@ -368,10 +339,6 @@ h1 .amp{color:var(--pink-deep);font-size:.75em;padding:0 7px}
     document.getElementById('hint').innerHTML = t.hint;
     document.getElementById('littleNote').innerHTML = t.littleNote;
     document.getElementById('footerNote').innerHTML = t.footerNote;
-    document.getElementById('adminTitle').innerText = t.adminTitle;
-    document.getElementById('lblBoy').innerText = t.lblBoy;
-    document.getElementById('lblGirl').innerText = t.lblGirl;
-    document.getElementById('adminDesc').innerText = t.adminDesc;
 
     if (currentGender) {
       if (currentGender === 'boy') {
@@ -387,17 +354,9 @@ h1 .amp{color:var(--pink-deep);font-size:.75em;padding:0 7px}
   btnBg.addEventListener('click', () => setLanguage('bg'));
   btnEn.addEventListener('click', () => setLanguage('en'));
 
-  adminBtn.addEventListener('click', () => adminPanel.classList.toggle('open'));
-  document.querySelectorAll('input[name="genderPick"]').forEach(input => {
-    input.addEventListener('change', (e) => {
-      REVEAL_GENDER = e.target.value;
-      adminPanel.classList.remove('open');
-    });
-  });
-
   function reveal(){
     if (photoStage.classList.contains('revealed')) return;
-    currentGender = REVEAL_GENDER === 'boy' || REVEAL_GENDER === 'girl' ? REVEAL_GENDER : (Math.random() < 0.5 ? 'boy' : 'girl');
+    currentGender = REVEAL_GENDER;
     const t = translations[currentLang];
 
     if (currentGender === 'boy'){
